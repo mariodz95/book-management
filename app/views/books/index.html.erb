@@ -2,6 +2,8 @@
 
 <h1><%= @books.length %> books</h1>
 
+<%= paginate @books %>
+
 <% @books.each do |book| %>
   <div class="card w-100">
     <div class="card-body">
@@ -21,8 +23,4 @@
   </div>
 <% end %>
 
-
-<br>
-
-<%= link_to 'New Book', new_book_path, :class => 'btn btn-primary'  %>
-
+<%= paginate @books %>
