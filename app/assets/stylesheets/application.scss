@@ -1,0 +1,49 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+a{
+    font-size: 25px;
+}
+
+.navbar-brand{
+    font-size: 25px;
+}
+
+label, p, td{
+    font-size: 18px
+}
+
+strong, th{
+    font-size: 22px;
+}
+
+.btn{
+    font-size: 20px !important;
+    background-color: #564D65 !important;
+    border: #564D65  !important;
+}
+
+.actions{
+    margin-top: 20px;
+    text-align: center;
+}
+
+.title{
+    text-align: center;
+}
+
+input, textarea { font-size: 18px !important; }
+
+footer{
+    font-size: 18px;
+}
+.nav{
+    color: white !important;
+}
+a{
+    color: white;
+}
+.nav-name{
+    color: white;
+    font-size: 16px;
+}
