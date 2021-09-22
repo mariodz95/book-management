@@ -35,5 +35,15 @@
   <%= @book.bookNumber %>
 </p>
 
-<%= link_to 'Edit', edit_book_path(@book), :class => 'btn btn-primary'  %> |
-<%= link_to 'Back', books_path, :class => 'btn btn-primary' %>
+<p>
+  <strong>Is available:</strong>
+  <% if @book.available? %>
+    <i class="glyphicon glyphicon-ok" style="font-size:30px;color:green;text-shadow:2px 2px 4px #000000;"></i>
+  <% else %>
+    <i class="glyphicon glyphicon-remove" style="font-size:30px;color:red;text-shadow:2px 2px 4px #000000;"></i>
+    <% end %>
+
+</p>
+<%= link_to 'Take', books_take_book_path(:id => @book.id), method: :post, data: { confirm: 'Are you sure?' }, :class => 'btn btn-primary' if @book.amount > 0 %>
+<%= link_to 'Edit', edit_book_path(@book), :class => 'btn btn-primary' if user_signed_in? && current_user.admin_role?  %> |
+<%= link_to 'Back', books_path, :class => 'btn btn-primary' if user_signed_in? && current_user.admin_role? %>

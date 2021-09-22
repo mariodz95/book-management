@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_21_091103) do
+ActiveRecord::Schema.define(version: 2021_09_22_144448) do
+
+  create_table "book_reservations", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.integer "book_id"
+    t.string "reservationNumber"
+    t.datetime "start"
+    t.datetime "end"
+  end
 
   create_table "books", force: :cascade do |t|
     t.string "name"
@@ -22,6 +32,8 @@ ActiveRecord::Schema.define(version: 2021_09_21_091103) do
     t.string "bookNumber"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "status"
+    t.integer "amount", default: 1
   end
 
   create_table "users", force: :cascade do |t|
@@ -32,6 +44,8 @@ ActiveRecord::Schema.define(version: 2021_09_21_091103) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "admin_role"
+    t.boolean "user_role", default: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

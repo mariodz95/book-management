@@ -107,3 +107,17 @@ footer{
         border: none;
     }
 }
+
+.pagination{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#search-form{
+    text-align: center;
+}
+
+.search-field{
+    width: 200px;
+}

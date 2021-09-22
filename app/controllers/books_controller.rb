@@ -1,9 +1,14 @@
 class BooksController < ApplicationController
   before_action :set_book, only: %i[ show edit update destroy ]
 
+  before_action :authenticate_user!, only: [:new]
   # GET /books or /books.json
   def index
-    @books = Book.page(params[:page]).per(10).order('created_at DESC')
+    if params[:search]
+      @books = Book.search(params[:search]).page(params[:page]).per(10).order("created_at DESC")
+    else
+      @books = Book.page(params[:page]).per(10).order('created_at DESC')
+    end
   end
 
   # GET /books/1 or /books/1.json
@@ -19,10 +24,24 @@ class BooksController < ApplicationController
   def edit
   end
 
-  # POST /books or /books.json
-  def create
+  def take_book
+    book = Book.find(params[:id])
+    book.update(:status => 'unavailable')
+    book.update(:amount => book.amount - 1)
+    @book = Book.find(params[:id])
+
+    today = DateTime.now
+
+    BookReservation.create(user_id: current_user.id, book_id: book.id, reservationNumber: rand(10 ** 10).to_s, start: today, end: today + 14 )
+
+    redirect_to(@book)
+  end  
+
+   # POST /books or /books.json
+   def create
     @book = Book.new(book_params)
     @book.bookNumber = rand(10 ** 10)
+    @book.status = 'available'
 
     respond_to do |format|
       if @book.save
@@ -34,6 +53,7 @@ class BooksController < ApplicationController
       end
     end
   end
+
 
   # PATCH/PUT /books/1 or /books/1.json
   def update
