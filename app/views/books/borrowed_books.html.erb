@@ -1,0 +1,17 @@
+<% @book_reservations.each do |reservation| %>
+
+  <div class="card w-100">
+  <div class="card-body">
+    <p>Reservation number: <%= reservation.reservationNumber %></p>
+    <p>Reservation start: <%= reservation.start.to_formatted_s(:db) %></p>
+    <p>Reservation until: <%= reservation.end.to_formatted_s(:db) %></p>
+    <p>User that borrowed book: <%= reservation.user.email %></p>
+    <p>Borrowed book: <%= reservation.book.name %></p>
+    <p>Until reservation ended<%= distance_of_time_in_words(Time.now.utc, reservation.end)  %></p>
+    <%= link_to 'Delete', books_delete_reservation_path(:id => reservation.id), method: :delete, remote: :true, data: { confirm: 'Are you sure?' }, :action => 'delete_reservation', :class => 'btn btn-primary' if user_signed_in? && current_user.admin_role? %>
+
+ </div>
+</div>
+
+
+<% end %>

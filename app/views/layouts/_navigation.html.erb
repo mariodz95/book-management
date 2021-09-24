@@ -15,7 +15,7 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><%= link_to 'New Book', new_book_path, :class => "dropdown-item" if user_signed_in? && current_user.admin_role? %></li>
-            <li><%= link_to 'Borrowed books', new_book_path, :class => "dropdown-item" if user_signed_in? && current_user.admin_role? %></li>
+            <li><%= link_to 'Borrowed books', books_borrowed_path, :class => "dropdown-item" if user_signed_in? && current_user.admin_role? %></li>
           </ul>
         </li>
         

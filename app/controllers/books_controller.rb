@@ -29,9 +29,7 @@ class BooksController < ApplicationController
     book.update(:status => 'unavailable')
     book.update(:amount => book.amount - 1)
     @book = Book.find(params[:id])
-
     today = DateTime.now
-
     BookReservation.create(user_id: current_user.id, book_id: book.id, reservationNumber: rand(10 ** 10).to_s, start: today, end: today + 14 )
 
     redirect_to(@book)
@@ -73,6 +71,23 @@ class BooksController < ApplicationController
     @book.destroy
     respond_to do |format|
       format.html { redirect_to books_url, notice: "Book was successfully destroyed." }
+      format.json { head :no_content }
+    end
+  end
+
+  def borrowed_books
+    @book_reservations = BookReservation.all
+  end
+
+  def delete_reservation   
+    bookReservation =  BookReservation.find(params[:id])
+    book = Book.find(bookReservation.book.id)
+    book.update(:status => 'available')
+    book.update(:amount => book.amount + 1)
+    bookReservation.destroy
+
+    respond_to do |format|
+      format.html { redirect_to books_borrowed_path, notice: "Reservation was successfully destroyed." }
       format.json { head :no_content }
     end
   end
