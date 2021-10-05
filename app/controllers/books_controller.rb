@@ -6,7 +6,11 @@ class BooksController < ApplicationController
   def index
     @books_categories = BookCategory.all
     if params[:search]
-      @books = Book.search(params[:search]).page(params[:page]).per(10).order("created_at DESC")
+      if params[:search_category].to_i > 1
+        @books = Book.search(params[:search]).where("book_category_id = #{params[:search_category]}").page(params[:page]).per(10).order("created_at DESC")
+      else
+        @books = Book.search(params[:search]).page(params[:page]).per(10).order("created_at DESC")
+      end
     else
       @books = Book.page(params[:page]).per(10).order('created_at DESC')
     end

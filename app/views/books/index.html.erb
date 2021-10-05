@@ -4,12 +4,9 @@
 
 <%= form_tag(books_path, :method => "get", id: "search-form") do %>
   <%= text_field_tag :search, params[:search], placeholder: "Search Posts" %>
+  <%= select_tag "search_category", options_for_select(@books_categories.map {|category| [category.name, category.id, { 'data-url' => books_path(search_category: category.id) }] }) %>
   <%= submit_tag "Search", :class => 'btn btn-primary' %>
 <% end %>
-
-<%= render 'books/category_search' %>
-
-<%= paginate @books %>
 
 <% @books.each do |book| %>
   <div class="card w-100">

@@ -16,18 +16,16 @@ ActiveRecord::Schema.define(version: 2021_10_05_084658) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "book_id"
-    t.index ["book_id"], name: "index_book_categories_on_book_id"
   end
 
   create_table "book_reservations", force: :cascade do |t|
+    t.string "reservationNumber"
+    t.datetime "start"
+    t.datetime "end"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"
     t.integer "book_id"
-    t.string "reservationNumber"
-    t.datetime "start"
-    t.datetime "end"
   end
 
   create_table "books", force: :cascade do |t|
@@ -40,7 +38,7 @@ ActiveRecord::Schema.define(version: 2021_10_05_084658) do
     t.string "bookNumber"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "status"
+    t.string "status", default: "available"
     t.integer "amount", default: 1
     t.integer "book_category_id"
   end
@@ -59,5 +57,4 @@ ActiveRecord::Schema.define(version: 2021_10_05_084658) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "book_categories", "books"
 end

@@ -1,8 +1,6 @@
 class Book < ApplicationRecord
   validates :name, :author, :pages, :description, :languange, :publisher, :bookNumber, presence: true
   has_one :book_reservation, dependent: :destroy
-  has_many :book_categories
-
 
   VALID_STATUSES = ['available', 'unavailable']
 
