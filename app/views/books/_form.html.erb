@@ -48,10 +48,20 @@
     <br>
     <%= form.text_field :publisher, class: 'form-control', :required => true %>
   </div>
-    <div class="actions">
+
+  <div class="field">
+    <%= form.label :category %>
+    <br>
+      <%= form.select :book_category_id, @books_categories.map {|b| [b.name, b.id]} %>
+  </div>
+
+  <div class="actions">
     <%= link_to 'Back', books_path, :class => 'btn btn-primary' %>
     <%= form.submit :class => 'btn btn-primary' %>
   </div>
   </div>
   </div>
 <% end %>
+
+<%= params.inspect %>
+

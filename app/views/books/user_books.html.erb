@@ -1,5 +1,6 @@
-<% @book_reservations.each do |reservation| %>
+<h1>My reservations</h1>
 
+<%= @user_books.each do |reservation| %>
   <div class="card w-100">
   <div class="card-body">
     <p>Reservation number: <%= reservation.reservationNumber %></p>
@@ -11,6 +12,4 @@
     <%= link_to 'Delete', books_delete_reservation_path(:id => reservation.id), method: :delete, remote: :true, data: { confirm: 'Are you sure?' }, :action => 'delete_reservation', :class => 'btn btn-primary' if user_signed_in? && current_user.admin_role? %>
  </div>
 </div>
-
-
 <% end %>

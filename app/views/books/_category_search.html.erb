@@ -1,0 +1,5 @@
+
+<%= form_with(scope: "book") do |f| %>
+  <%= f.select :id, @books_categories.map {|b| [b.name, b.id]} %>
+  <%= f.submit %>
+<% end %>

@@ -7,10 +7,7 @@
   <%= submit_tag "Search", :class => 'btn btn-primary' %>
 <% end %>
 
-<%= form_with(scope: "book") do |f| %>
-  <%= f.select :id, @books.map {|b| [b.name, b.id]} %>
-  <%= f.submit %>
-<% end %>
+<%= render 'books/category_search' %>
 
 <%= paginate @books %>
 
@@ -22,6 +19,8 @@
         <div class="col-8">
           <p class="card-text"><%= book.author %></p>
           <p class="card-text"><%= book.publisher %></p>
+          <p class="card-text">Category: <%= my_method(book.book_category_id) %></p>
+      
         </div>
         <div class="col-4">
           <%= link_to 'Edit', edit_book_path(book), :class => 'btn btn-primary' if user_signed_in? && current_user.admin_role? %>

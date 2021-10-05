@@ -4,6 +4,7 @@ class BooksController < ApplicationController
   before_action :authenticate_user!, only: [:new]
   # GET /books or /books.json
   def index
+    @books_categories = BookCategory.all
     if params[:search]
       @books = Book.search(params[:search]).page(params[:page]).per(10).order("created_at DESC")
     else
@@ -17,6 +18,8 @@ class BooksController < ApplicationController
 
   # GET /books/new
   def new
+    @books_categories = BookCategory.all
+
     @book = Book.new
   end
 
@@ -92,6 +95,16 @@ class BooksController < ApplicationController
     end
   end
 
+  def user_books
+    @user_books = BookReservation.where("user_id = #{current_user.id}")
+  end
+
+  def my_method id
+    @book_category = BookCategory.find(id).name
+  end
+
+  helper_method :my_method
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_book
@@ -100,6 +113,6 @@ class BooksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def book_params
-      params.require(:book).permit(:name, :author, :pages, :description, :languange, :publisher, :bookNumber)
+      params.require(:book).permit(:name, :author, :pages, :description, :languange, :publisher, :bookNumber, :book_category_id)
     end
 end

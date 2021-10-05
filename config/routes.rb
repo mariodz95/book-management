@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   
 
   get 'books/borrowed', to: 'books#borrowed_books'
-
+  get 'books/user-books', to: 'books#user_books'
+  
   delete 'books/delete_reservation', to: 'books#delete_reservation'
 
 
